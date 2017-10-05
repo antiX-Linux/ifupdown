@@ -1,0 +1,163 @@
+.SH INET ADDRESS FAMILY
+This section documents the methods available in the
+inet address family.
+.SS The loopback Method
+This method may be used to define the IPv4 loopback interface. 
+.PP
+.B Options
+.RS
+.TP
+(No options)
+.RE
+.SS The static Method
+This method may be used to define Ethernet interfaces with statically allocated IPv4 addresses. 
+.PP
+.B Options
+.RS
+.TP
+.BI address " address            "
+Address (dotted quad/netmask) \fBrequired\fP
+.TP
+.BI netmask " mask               "
+Netmask (dotted quad or CIDR)
+.TP
+.BI broadcast " broadcast_address"
+Broadcast address (dotted quad, + or -). Default value: "+"
+.TP
+.BI metric " metric              "
+Routing metric for default gateway (integer)
+.TP
+.BI gateway " address            "
+Default gateway (dotted quad)
+.TP
+.BI pointopoint " address        "
+Address of other end point (dotted quad). Note the spelling of "point-to".
+.TP
+.BI hwaddress " address          "
+Link local address or "random".
+.TP
+.BI mtu " size                   "
+MTU size
+.TP
+.BI scope
+Address validity scope. Possible values: global, link, host
+.RE
+.SS The manual Method
+This method may be used to define interfaces for which no configuration is done by default. Such interfaces can be configured manually by means of \fBup\fP and \fBdown\fP commands or /etc/network/if-*.d scripts. 
+.PP
+.B Options
+.RS
+.TP
+.BI hwaddress " address          "
+Link local address or "random".
+.TP
+.BI mtu " size                   "
+MTU size
+.RE
+.SS The dhcp Method
+This method may be used to obtain an address via DHCP with any of the tools: dhclient, pump, udhcpc, dhcpcd. (They have been listed in their order of precedence.) If you have a complicated DHCP setup you should note that some of these clients use their own configuration files and do not obtain their configuration information via \fBifup\fP. 
+.PP
+.B Options
+.RS
+.TP
+.BI hostname " hostname      "
+Hostname to be requested (pump, dhcpcd, udhcpc)
+.TP
+.BI metric " metric          "
+Metric for added routes (dhclient)
+.TP
+.BI leasehours " leasehours  "
+Preferred lease time in hours (pump)
+.TP
+.BI leasetime " leasetime    "
+Preferred lease time in seconds (dhcpcd)
+.TP
+.BI vendor " vendor          "
+Vendor class identifier (dhcpcd)
+.TP
+.BI client " client          "
+Client identifier (dhcpcd)
+.TP
+.BI hwaddress " address      "
+Hardware address.
+.RE
+.SS The bootp Method
+This method may be used to obtain an address via bootp. 
+.PP
+.B Options
+.RS
+.TP
+.BI bootfile " file "
+Tell the server to use \fIfile\fP as the bootfile.
+.TP
+.BI server " address"
+Use the IP address \fIaddress\fP to communicate with the server.
+.TP
+.BI hwaddr " addr   "
+Use \fIaddr\fP as the hardware address instead of whatever it really is.
+.RE
+.SS The tunnel Method
+This method is used to create GRE or IPIP tunnels. You need to have the \fBip\fP binary from the \fBiproute\fP package. For GRE tunnels, you will need to load the ip_gre module and the ipip module for IPIP tunnels. 
+.PP
+.B Options
+.RS
+.TP
+.BI address " address      "
+Local address (dotted quad) \fBrequired\fP
+.TP
+.BI mode " type            "
+Tunnel type (either GRE or IPIP) \fBrequired\fP
+.TP
+.BI endpoint " address     "
+Address of other tunnel endpoint \fBrequired\fP
+.TP
+.BI dstaddr " address      "
+Remote address (remote address inside tunnel)
+.TP
+.BI local " address        "
+Address of the local endpoint
+.TP
+.BI metric " metric        "
+Routing metric for default gateway (integer)
+.TP
+.BI gateway " address      "
+Default gateway
+.TP
+.BI ttl " time             "
+TTL setting
+.TP
+.BI mtu " size             "
+MTU size
+.RE
+.SS The ppp Method
+This method uses pon/poff to configure a PPP interface. See those commands for details. 
+.PP
+.B Options
+.RS
+.TP
+.BI provider " name "
+Use \fIname\fP as the provider (from /etc/ppp/peers).
+.TP
+.BI unit " number   "
+Use \fInumber\fP as the ppp unit number.
+.TP
+.BI options " string"
+Pass \fIstring\fP as additional options to pon.
+.RE
+.SS The wvdial Method
+This method uses wvdial to configure a PPP interface. See that command for more details. 
+.PP
+.B Options
+.RS
+.TP
+.BI provider " name "
+Use \fIname\fP as the provider (from /etc/wvdial.conf).
+.RE
+.SS The ipv4ll Method
+This method uses avahi-autoipd to configure an interface with an IPv4 Link-Layer address (169.254.0.0/16 family). This method is also known as APIPA or IPAC, and often colloquially referred to as "Zeroconf address". 
+.PP
+.B Options
+.RS
+.TP
+(No options)
+.RE

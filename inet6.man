@@ -1,0 +1,173 @@
+.SH INET6 ADDRESS FAMILY
+This section documents the methods available in the
+inet6 address family.
+.SS The auto Method
+This method may be used to define interfaces with automatically assigned IPv6 addresses. Using this method on its own doesn't mean that RDNSS options will be applied, too. To make this happen, \fBrdnssd\fP daemon must be installed, properly configured and running. If stateless DHCPv6 support is turned on, then additional network configuration parameters such as DNS and NTP servers will be retrieved from a DHCP server. Please note that on ifdown, the lease is not currently released (a known bug). 
+.PP
+.B Options
+.RS
+.TP
+.BI privext " int           "
+Privacy extensions (RFC4941) (0=off, 1=assign, 2=prefer)
+.TP
+.BI accept_ra " int         "
+Accept router advertisements (0=off, 1=on, 2=on+forwarding). Default value: "2"
+.TP
+.BI dhcp " int              "
+Use stateless DHCPv6 (0=off, 1=on)
+.TP
+.BI request_prefix " int    "
+Request a prefix through DHCPv6 Prefix Delegation (0=off, 1=on). Default value: "0"
+.TP
+.BI ll-attempts
+Number of attempts to wait for a link-local address. Default value: "60"
+.TP
+.BI ll-interval
+Link-local address polling interval in seconds. Default value: "0.1"
+.RE
+.SS The loopback Method
+This method may be used to define the IPv6 loopback interface. 
+.PP
+.B Options
+.RS
+.TP
+(No options)
+.RE
+.SS The static Method
+This method may be used to define interfaces with statically assigned IPv6 addresses. By default, stateless autoconfiguration is disabled for this interface. 
+.PP
+.B Options
+.RS
+.TP
+.BI address " address       "
+Address (colon delimited/netmask) \fBrequired\fP
+.TP
+.BI netmask " mask          "
+Netmask (number of bits, eg 64)
+.TP
+.BI metric " metric         "
+Routing metric for default gateway (integer)
+.TP
+.BI gateway " address       "
+Default gateway (colon delimited)
+.TP
+.BI media " type            "
+Medium type, driver dependent
+.TP
+.BI hwaddress " address     "
+Hardware address or "random"
+.TP
+.BI mtu " size              "
+MTU size
+.TP
+.BI accept_ra " int         "
+Accept router advertisements (0=off, 1=on, 2=on+forwarding)
+.TP
+.BI autoconf " int          "
+Perform stateless autoconfiguration (0=off, 1=on). Default value: "0"
+.TP
+.BI privext " int           "
+Privacy extensions (RFC3041) (0=off, 1=assign, 2=prefer)
+.TP
+.BI scope
+Address validity scope. Possible values: global, site, link, host
+.TP
+.BI preferred-lifetime " int"
+Time that address remains preferred
+.TP
+.BI dad-attempts
+Number of attempts to settle DAD (0 to disable DAD). Default value: "60"
+.TP
+.BI dad-interval
+DAD state polling interval in seconds. Default value: "0.1"
+.RE
+.SS The manual Method
+This method may be used to define interfaces for which no configuration is done by default. Such interfaces can be configured manually by means of \fBup\fP and \fBdown\fP commands or /etc/network/if-*.d scripts. 
+.PP
+.B Options
+.RS
+.TP
+.BI hwaddress " address     "
+Hardware address or "random"
+.TP
+.BI mtu " size              "
+MTU size
+.RE
+.SS The dhcp Method
+This method may be used to obtain network interface configuration via stateful DHCPv6 with dhclient. In stateful DHCPv6, the DHCP server is responsible for assigning addresses to clients. 
+.PP
+.B Options
+.RS
+.TP
+.BI hwaddress " address     "
+Hardware address or "random"
+.TP
+.BI accept_ra " int         "
+Accept router advertisements (0=off, 1=on, 2=on+forwarding). Default value: "1"
+.TP
+.BI autoconf " int          "
+Perform stateless autoconfiguration (0=off, 1=on)
+.TP
+.BI request_prefix " int    "
+Request a prefix through DHCPv6 Prefix Delegation (0=off, 1=on). Default value: "0"
+.TP
+.BI ll-attempts
+Number of attempts to wait for a link-local address. Default value: "60"
+.TP
+.BI ll-interval
+Link-local address polling interval in seconds. Default value: "0.1"
+.RE
+.SS The v4tunnel Method
+This method may be used to setup an IPv6-over-IPv4 tunnel. It requires the \fBip\fP command from the \fBiproute\fP package. 
+.PP
+.B Options
+.RS
+.TP
+.BI address " address      "
+Address (colon delimited) \fBrequired\fP
+.TP
+.BI netmask " mask         "
+Netmask (number of bits, eg 64)
+.TP
+.BI endpoint " address     "
+Address of other tunnel endpoint (IPv4 dotted quad) \fBrequired\fP
+.TP
+.BI local " address        "
+Address of the local endpoint (IPv4 dotted quad)
+.TP
+.BI metric " metric        "
+Routing metric for default gateway (integer)
+.TP
+.BI gateway " address      "
+Default gateway (colon delimited)
+.TP
+.BI ttl " time             "
+TTL setting
+.TP
+.BI mtu " size             "
+MTU size
+.TP
+.BI preferred-lifetime " int"
+Time that address remains preferred
+.RE
+.SS The 6to4 Method
+This method may be used to setup an 6to4 tunnel. It requires the \fBip\fP command from the \fBiproute\fP package. 
+.PP
+.B Options
+.RS
+.TP
+.BI local " address        "
+Address of the local endpoint (IPv4 dotted quad) \fBrequired\fP
+.TP
+.BI metric " metric        "
+Routing metric for default gateway (integer)
+.TP
+.BI ttl " time             "
+TTL setting
+.TP
+.BI mtu " size             "
+MTU size
+.TP
+.BI preferred-lifetime " int"
+Time that address remains preferred
+.RE

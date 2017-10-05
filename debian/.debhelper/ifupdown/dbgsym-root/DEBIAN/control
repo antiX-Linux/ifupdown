@@ -1,0 +1,12 @@
+Package: ifupdown-dbgsym
+Source: ifupdown
+Version: 0.8.19+2
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Guus Sliepen <guus@debian.org>
+Installed-Size: 83
+Depends: ifupdown (= 0.8.19+2)
+Section: debug
+Priority: extra
+Description: Debug symbols for ifupdown
+Build-Ids: 9a6a45aec2a8bfaee57885b1d769c19933056588

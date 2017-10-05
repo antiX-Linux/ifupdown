@@ -1,0 +1,30 @@
+.SH CAN ADDRESS FAMILY
+This section documents the methods available in the
+can address family.
+.SS The static Method
+This method may be used to setup an Controller Area Network (CAN) interface. It requires the the \fBip\fP command from the \fBiproute\fP package. 
+.PP
+.B Options
+.RS
+.TP
+.BI bitrate " bitrate	"
+bitrate (1..1000000) \fBrequired\fP
+.TP
+.BI samplepoint " samplepoint"
+sample point (0.000..0.999)
+.TP
+.BI loopback " loopback	"
+loop back CAN Messages (on|off)
+.TP
+.BI listenonly " listenonly"
+listen only mode (on|off)
+.TP
+.BI triple " triple	"
+activate triple sampling (on|off)
+.TP
+.BI oneshot " oneshot	"
+one shot mode (on|off)
+.TP
+.BI berr " berr		"
+activate berr reporting (on|off)
+.RE
